@@ -1,0 +1,130 @@
+{
+  "system": {
+    "deviceName": "AMT_ESP32_CONTROLLER",
+    "firmwareVersion": "2.4.0",
+    "hardwareRevision": "ESP32S-38PIN-V2",
+    "simulationMode": false,
+    "watchdogTimeoutMs": 8000,
+    "emergencyStopNormallyClosed": true
+  },
+  "pins": {
+    "rpmSensorPin": 34,
+    "engineCutRelayPin": 19,
+    "emergencyStopPin": 35,
+    "i2cSdaPin": 21,
+    "i2cSclPin": 22,
+    "stepperMode": "L298N",
+    "stepperIn1Pin": 25,
+    "stepperIn2Pin": 26,
+    "stepperIn3Pin": 27,
+    "stepperIn4Pin": 14,
+    "stepperStepPin": 25,
+    "stepperDirPin": 26,
+    "stepperEnablePin": 27,
+    "statusLedPin": 2
+  },
+  "rpmSensor": {
+    "pulsesPerRevolution": 1,
+    "glitchFilterMicros": 200,
+    "measurementWindowMs": 100,
+    "sensorTimeoutMs": 2500,
+    "maxPlausibleRpm": 12000,
+    "movingAverageSamples": 5,
+    "calibrationFactor": 1.0
+  },
+  "clutchServo": {
+    "pca9685Channel": 0,
+    "engagedAngle": 15,
+    "disengagedAngle": 95,
+    "travelTimeMs": 250,
+    "servoMinPulseUs": 500,
+    "servoMaxPulseUs": 2500,
+    "pwmFrequencyHz": 50
+  },
+  "auxServo": {
+    "pca9685Channel": 1,
+    "minAngle": 0,
+    "maxAngle": 180,
+    "travelTimeMs": 200,
+    "enabled": false
+  },
+  "stepperMotor": {
+    "driverType": "L298N",
+    "stepsPerRevolution": 200,
+    "maxSpeedStepsPerSec": 800,
+    "accelerationStepsPerSec2": 1500,
+    "homingDirection": -1,
+    "homingSpeedStepsPerSec": 300,
+    "gearPositions": {
+      "neutral": 0,
+      "gear1": 500,
+      "gear2": 1000,
+      "gear3": 1500,
+      "gear4": 2000
+    },
+    "stepTimeoutMs": 2500,
+    "currentLimitPwm": 180
+  },
+  "engineRelay": {
+    "activeHigh": false,
+    "cutDurationMs": 90,
+    "preShiftCutDelayMs": 30
+  },
+  "shiftSequencing": {
+    "clutchPullDelayMs": 250,
+    "engineCutPreDelayMs": 40,
+    "gearActuateTimeoutMs": 1200,
+    "engineRestoreDelayMs": 60,
+    "clutchReleaseDelayMs": 280,
+    "minimumShiftIntervalMs": 3000,
+    "shiftWatchdogTimeoutMs": 3500
+  },
+  "autoShift": {
+    "enabled": true,
+    "rpmThresholds": {
+      "gear1": { "upshiftRpm": 3200, "downshiftRpm": 1300, "speedKmh": 15 },
+      "gear2": { "upshiftRpm": 3400, "downshiftRpm": 1500, "speedKmh": 30 },
+      "gear3": { "upshiftRpm": 3600, "downshiftRpm": 1700, "speedKmh": 50 },
+      "gear4": { "upshiftRpm": 4000, "downshiftRpm": 1900, "speedKmh": 75 }
+    },
+    "hysteresisRpm": 250,
+    "minEngineRpm": 900,
+    "redlineRpm": 6500
+  },
+  "network": {
+    "wifiSsid": "AMT_WIFI_NETWORK",
+    "wifiPassword": "amt_secure_password",
+    "apSsid": "AMT-CONTROLLER-AP",
+    "apPassword": "amtadminpassword",
+    "apChannel": 1,
+    "webServerPort": 80,
+    "webSocketPort": 81
+  },
+  "mqtt": {
+    "brokerHost": "127.0.0.1",
+    "brokerPort": 1883,
+    "username": "amt_user",
+    "password": "amt_password",
+    "clientId": "ESP32_AMT_GATEWAY",
+    "keepAliveSec": 15,
+    "reconnectIntervalMs": 3000,
+    "heartbeatIntervalMs": 1000,
+    "telemetryIntervalMs": 100,
+    "topics": {
+      "telemetry": "amt/telemetry",
+      "rpm": "amt/rpm",
+      "gear": "amt/gear",
+      "servo": "amt/servo",
+      "stepper": "amt/stepper",
+      "engine": "amt/engine",
+      "status": "amt/status",
+      "commands": "amt/commands",
+      "config": "amt/config",
+      "faults": "amt/faults",
+      "events": "amt/events",
+      "emergency": "amt/emergency",
+      "heartbeat": "amt/heartbeat"
+    }
+  }
+}
+

@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AMT Hardware Connection Diagram & Wi-Fi Setup Guide</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm 15mm 15mm 15mm;
+            @bottom-right {
+                content: "Page " counter(page) " of " counter(pages);
+                font-size: 8pt;
+                color: #64748b;
+            }
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        body {
+            background-color: #ffffff;
+            color: #0f172a;
+            font-size: 10pt;
+            line-height: 1.45;
+            padding: 0;
+        }
+        .page-break {
+            page-break-before: always;
+        }
+        .header-banner {
+            border-bottom: 2px solid #2563eb;
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .doc-title {
+            font-size: 18pt;
+            font-weight: 900;
+            color: #0f172a;
+            letter-spacing: -0.5px;
+        }
+        .doc-subtitle {
+            font-size: 9.5pt;
+            font-weight: 600;
+            color: #2563eb;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            font-size: 7.5pt;
+            font-weight: 700;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .badge-blue { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+        .badge-amber { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
+        .badge-red { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+        .badge-green { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+
+        h2 {
+            font-size: 12pt;
+            font-weight: 800;
+            color: #1e293b;
+            border-left: 4px solid #2563eb;
+            padding-left: 8px;
+            margin-top: 14px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        h3 {
+            font-size: 10pt;
+            font-weight: 700;
+            color: #334155;
+            margin-top: 10px;
+            margin-bottom: 4px;
+        }
+        p {
+            margin-bottom: 6px;
+            font-size: 9.5pt;
+            color: #334155;
+        }
+        .alert-box {
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-size: 8.5pt;
+            line-height: 1.4;
+        }
+        .alert-danger {
+            background-color: #fff1f2;
+            border-left: 4px solid #e11d48;
+            color: #9f1239;
+        }
+        .alert-warning {
+            background-color: #fffbeb;
+            border-left: 4px solid #d97706;
+            color: #92400e;
+        }
+        .alert-info {
+            background-color: #f0f9ff;
+            border-left: 4px solid #0284c7;
+            color: #075985;
+        }
+        .alert-success {
+            background-color: #f0fdf4;
+            border-left: 4px solid #16a34a;
+            color: #166534;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8px 0 12px 0;
+            font-size: 8.5pt;
+        }
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 5px 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f1f5f9;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        /* Steps */
+        .step-container {
+            margin: 8px 0;
+            padding-left: 10px;
+        }
+        .step-item {
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .step-num {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: #2563eb;
+            color: #ffffff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 20px;
+            font-weight: 800;
+            font-size: 8pt;
+            margin-right: 6px;
+        }
+        .step-title {
+            font-weight: 700;
+            color: #0f172a;
+            display: inline;
+        }
+        .step-desc {
+            margin-left: 26px;
+            margin-top: 3px;
+            color: #475569;
+            font-size: 9pt;
+        }
+
+        /* Diagram Box */
+        .diagram-box {
+            background-color: #090d16;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 10px 0;
+            color: #f8fafc;
+        }
+        .diagram-svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .mono {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-weight: 600;
+        }
+        .code-pill {
+            background: #e2e8f0;
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 8.5pt;
+            color: #0f172a;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================== PAGE 1 ========================================== -->
+    <div class="header-banner">
+        <div>
+            <div class="doc-title">AMT System Hardware Wiring & Wi-Fi Manual</div>
+            <div class="doc-subtitle">ESP32 38-Pin Microcontroller • 4-Speed Automatic Manual Transmission</div>
+        </div>
+        <div style="text-align: right;">
+            <span class="badge badge-blue">Firmware v2.4.0</span>
+            <div style="font-size: 7.5pt; color: #64748b; margin-top: 4px;">Hardware Architecture Manual</div>
+        </div>
+    </div>
+
+    <h2>1. Master System Connection Diagram</h2>
+    <p>Below is the complete, color-coded electrical connection schematic for the ESP32 microcontroller, sensors, drivers, actuators, relays, and isolated power supplies.</p>
+
+    <!-- Visual SVG Circuit Diagram -->
+    <div class="diagram-box">
+        <svg class="diagram-svg" viewBox="0 0 880 460" xmlns="http://www.w3.org/2000/svg">
+            <style>
+                .box { fill: #111827; stroke: #374151; stroke-width: 1.5; rx: 6; }
+                .box-esp { fill: #0f172a; stroke: #3b82f6; stroke-width: 2; rx: 8; }
+                .box-pwr { fill: #1c1917; stroke: #f59e0b; stroke-width: 1.5; rx: 6; }
+                .txt-title { font-size: 11px; font-weight: 800; fill: #ffffff; }
+                .txt-sub { font-size: 8.5px; fill: #9ca3af; font-family: sans-serif; }
+                .txt-pin { font-size: 8px; fill: #38bdf8; font-family: monospace; font-weight: 700; }
+                .line { stroke-width: 2; fill: none; }
+                .w-pwr { stroke: #ef4444; }
+                .w-gnd { stroke: #475569; stroke-dasharray: 4,2; }
+                .w-sig { stroke: #38bdf8; }
+                .w-i2c { stroke: #a855f7; }
+                .w-step { stroke: #06b6d4; }
+                .w-relay { stroke: #eab308; }
+            </style>
+
+            <!-- ESP32 Center Block -->
+            <rect x="330" y="70" width="220" height="300" class="box-esp" />
+            <text x="440" y="95" text-anchor="middle" class="txt-title" fill="#38bdf8">ESP32-S 38-PIN MODULE</text>
+            <text x="440" y="108" text-anchor="middle" class="txt-sub">Core Real-Time Controller</text>
+
+            <!-- ESP32 Left Pins -->
+            <text x="340" y="135" class="txt-pin">GPIO 34 (IN)  ◄── IR SENSOR (DO)</text>
+            <text x="340" y="160" class="txt-pin">GPIO 35 (IN)  ◄── E-STOP BUTTON (NC)</text>
+            <text x="340" y="195" class="txt-pin">GPIO 21 (SDA) ◄──► PCA9685 SDA</text>
+            <text x="340" y="215" class="txt-pin">GPIO 22 (SCL) ────► PCA9685 SCL</text>
+            <text x="340" y="245" class="txt-pin">3.3V OUT      ────► PCA9685 VCC & IR VCC</text>
+            <text x="340" y="270" class="txt-pin">GND           ────► COMMON GND BUS</text>
+
+            <!-- ESP32 Right Pins -->
+            <text x="440" y="145" class="txt-pin">GPIO 25 (OUT) ──► L298N IN1</text>
+            <text x="440" y="165" class="txt-pin">GPIO 26 (OUT) ──► L298N IN2</text>
+            <text x="440" y="185" class="txt-pin">GPIO 27 (OUT) ──► L298N IN3</text>
+            <text x="440" y="205" class="txt-pin">GPIO 14 (OUT) ──► L298N IN4</text>
+            <text x="440" y="245" class="txt-pin">GPIO 19 (OUT) ──► RELAY IN (Torque Cut)</text>
+            <text x="440" y="270" class="txt-pin">GPIO 2 (LED)  ──► Onboard Blue LED</text>
+
+            <!-- V183 IR Sensor (Top Left) -->
+            <rect x="30" y="40" width="220" height="85" class="box" />
+            <text x="140" y="60" text-anchor="middle" class="txt-title">V183 OPTICAL IR SENSOR</text>
+            <text x="140" y="73" text-anchor="middle" class="txt-sub">Engine Flywheel RPM Counter</text>
+            <text x="40" y="90" class="txt-pin" fill="#ef4444">VCC ──► Connect to ESP32 3.3V</text>
+            <text x="40" y="103" class="txt-pin" fill="#9ca3af">GND ──► Connect to ESP32 GND</text>
+            <text x="40" y="116" class="txt-pin" fill="#38bdf8">DO  ──► GPIO 34 (Interrupt Pulse)</text>
+
+            <!-- Hardware E-Stop Button (Mid Left) -->
+            <rect x="30" y="145" width="220" height="70" class="box" />
+            <text x="140" y="165" text-anchor="middle" class="txt-title" fill="#f87171">HARDWARE E-STOP BUTTON</text>
+            <text x="140" y="177" text-anchor="middle" class="txt-sub">Normally Closed (NC) Safety Loop</text>
+            <text x="40" y="195" class="txt-pin" fill="#38bdf8">Terminal 1 ──► GPIO 35 (with 10kΩ pull-up)</text>
+            <text x="40" y="207" class="txt-pin" fill="#9ca3af">Terminal 2 ──► ESP32 GND</text>
+
+            <!-- PCA9685 + Servo (Bottom Left) -->
+            <rect x="30" y="235" width="220" height="100" class="box" />
+            <text x="140" y="255" text-anchor="middle" class="txt-title">PCA9685 SERVO DRIVER</text>
+            <text x="140" y="267" text-anchor="middle" class="txt-sub">16-Channel 12-bit PWM (I2C 0x40)</text>
+            <text x="40" y="285" class="txt-pin" fill="#a855f7">VCC / GND ──► ESP32 3.3V / GND</text>
+            <text x="40" y="297" class="txt-pin" fill="#a855f7">SDA / SCL ──► GPIO 21 / GPIO 22</text>
+            <text x="40" y="310" class="txt-pin" fill="#f59e0b">V+ / GND  ──► EXT 6V 5A+ SUPPLY ONLY!</text>
+            <text x="40" y="323" class="txt-pin" fill="#10b981">Channel 0 ──► 25 kg·cm Clutch Servo</text>
+
+            <!-- L298N Stepper Driver (Top Right) -->
+            <rect x="630" y="40" width="220" height="120" class="box" />
+            <text x="740" y="60" text-anchor="middle" class="txt-title">L298N DUAL H-BRIDGE</text>
+            <text x="740" y="73" text-anchor="middle" class="txt-sub">NEMA 17 Actuator Driver</text>
+            <text x="640" y="90" class="txt-pin" fill="#06b6d4">IN1..IN4 ──► GPIO 25, 26, 27, 14</text>
+            <text x="640" y="103" class="txt-pin" fill="#f59e0b">12V VMS  ──► EXT 12V 2A+ POWER SUPPLY</text>
+            <text x="640" y="116" class="txt-pin" fill="#9ca3af">GND      ──► COMMON GROUND BUS</text>
+            <text x="640" y="130" class="txt-pin" fill="#06b6d4">OUT1/OUT2 ──► Coil A (Black & Green)</text>
+            <text x="640" y="143" class="txt-pin" fill="#06b6d4">OUT3/OUT4 ──► Coil B (Red & Blue)</text>
+
+            <!-- Engine Cut Relay (Bottom Right) -->
+            <rect x="630" y="180" width="220" height="95" class="box" />
+            <text x="740" y="200" text-anchor="middle" class="txt-title">ENGINE CUT RELAY</text>
+            <text x="740" y="213" text-anchor="middle" class="txt-sub">Optocoupled Ignition Interrupter</text>
+            <text x="640" y="230" class="txt-pin" fill="#eab308">VCC / GND ──► 5V / COMMON GND</text>
+            <text x="640" y="243" class="txt-pin" fill="#eab308">IN Signal ──► GPIO 19</text>
+            <text x="640" y="258" class="txt-pin" fill="#ffffff">COM & NC  ──► Vehicle Ignition Coil Kill Wire</text>
+
+            <!-- Power Supplies Box (Bottom Center) -->
+            <rect x="330" y="390" width="520" height="55" class="box-pwr" />
+            <text x="590" y="410" text-anchor="middle" class="txt-title" fill="#f59e0b">ISOLATED POWER DISTRIBUTION & COMMON GROUND BUS</text>
+            <text x="345" y="430" class="txt-pin" fill="#f59e0b">• 6V 5A-10A PSU: PCA9685 V+ & Servos</text>
+            <text x="600" y="430" class="txt-pin" fill="#f59e0b">• 12V 2A-3A PSU: L298N Stepper Driver</text>
+            <text x="345" y="442" class="txt-pin" fill="#38bdf8">• 5V USB: ESP32 & Relay</text>
+            <text x="600" y="442" class="txt-pin" fill="#ffffff">★ ALL NEGATIVE (GND) WIRES CONNECTED TOGETHER</text>
+        </svg>
+    </div>
+
+    <h2>2. Pin-by-Pin Hardware Wiring Checklist</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Target Module</th>
+                <th>Module Pin</th>
+                <th>Connects to ESP32 / Power</th>
+                <th>Wire Color (Rec.)</th>
+                <th>Signal / Purpose</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="3"><strong>V183 IR Sensor</strong></td>
+                <td><span class="mono">VCC</span></td>
+                <td>ESP32 <span class="mono">3.3V</span> pin</td>
+                <td>Red</td>
+                <td>Safe 3.3V Logic Supply</td>
+            </tr>
+            <tr>
+                <td><span class="mono">GND</span></td>
+                <td>ESP32 <span class="mono">GND</span></td>
+                <td>Black</td>
+                <td>Ground Reference</td>
+            </tr>
+            <tr>
+                <td><span class="mono">DO</span></td>
+                <td>ESP32 <span class="mono">GPIO 34</span></td>
+                <td>Yellow / Blue</td>
+                <td>RPM Interrupt Pulse Input</td>
+            </tr>
+            <tr>
+                <td rowspan="2"><strong>Hardware E-Stop</strong></td>
+                <td><span class="mono">NC Contact 1</span></td>
+                <td>ESP32 <span class="mono">GPIO 35</span> (with 10k pull-up)</td>
+                <td>White</td>
+                <td>Normally Closed Failsafe Loop</td>
+            </tr>
+            <tr>
+                <td><span class="mono">NC Contact 2</span></td>
+                <td>ESP32 <span class="mono">GND</span></td>
+                <td>Black</td>
+                <td>Ground return for NC switch</td>
+            </tr>
+            <tr>
+                <td rowspan="4"><strong>PCA9685 Servo Driver</strong></td>
+                <td><span class="mono">VCC / GND</span></td>
+                <td>ESP32 <span class="mono">3.3V / GND</span></td>
+                <td>Red / Black</td>
+                <td>PCA9685 3.3V Logic Supply</td>
+            </tr>
+            <tr>
+                <td><span class="mono">SDA / SCL</span></td>
+                <td>ESP32 <span class="mono">GPIO 21 / GPIO 22</span></td>
+                <td>Purple / Orange</td>
+                <td>I2C Bus (Address 0x40, 400kHz)</td>
+            </tr>
+            <tr>
+                <td><span class="mono">V+ (Screw Terminal)</span></td>
+                <td><strong>External +6V DC (5A+)</strong></td>
+                <td>Thick Red (18 AWG)</td>
+                <td>High-Current Servo Power Rail</td>
+            </tr>
+            <tr>
+                <td><span class="mono">GND (Screw Terminal)</span></td>
+                <td><strong>External 6V PSU GND & ESP32 GND</strong></td>
+                <td>Thick Black (18 AWG)</td>
+                <td>Common Servo Ground Return</td>
+            </tr>
+            <tr>
+                <td><strong>25 kg·cm Clutch Servo</strong></td>
+                <td>3-Pin Cable</td>
+                <td>PCA9685 <span class="mono">Channel 0</span> Header</td>
+                <td>Brown (GND), Red (V+), Orange (PWM)</td>
+                <td>Clutch Throw Actuator</td>
+            </tr>
+            <tr>
+                <td rowspan="4"><strong>L298N Stepper Driver</strong></td>
+                <td><span class="mono">IN1, IN2, IN3, IN4</span></td>
+                <td>ESP32 <span class="mono">GPIO 25, 26, 27, 14</span></td>
+                <td>Green, Yellow, Blue, White</td>
+                <td>4-Phase Bipolar Step Sequencing</td>
+            </tr>
+            <tr>
+                <td><span class="mono">+12V Terminal</span></td>
+                <td><strong>External +12V DC (2A+)</strong></td>
+                <td>Thick Red (18 AWG)</td>
+                <td>Motor Coil Drive Voltage</td>
+            </tr>
+            <tr>
+                <td><span class="mono">GND Terminal</span></td>
+                <td><strong>12V PSU GND & Common Ground</strong></td>
+                <td>Thick Black (18 AWG)</td>
+                <td>Motor Drive Ground Return</td>
+            </tr>
+            <tr>
+                <td><span class="mono">OUT1, OUT2, OUT3, OUT4</span></td>
+                <td>NEMA 17 Wires: Black, Green, Red, Blue</td>
+                <td>Motor Harness</td>
+                <td>Coil A (OUT1/2), Coil B (OUT3/4)</td>
+            </tr>
+            <tr>
+                <td rowspan="2"><strong>Engine Cut Relay</strong></td>
+                <td><span class="mono">VCC, GND, IN</span></td>
+                <td>ESP32 <span class="mono">5V / GND / GPIO 19</span></td>
+                <td>Red, Black, Brown</td>
+                <td>Ignition Cut Command</td>
+            </tr>
+            <tr>
+                <td><span class="mono">COM / NC</span></td>
+                <td>In series with Ignition Coil Ground / Kill wire</td>
+                <td>Automotive Wire</td>
+                <td>90ms Torque Relief during shifts</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert-box alert-danger">
+        <strong>CRITICAL SAFETY RULE: NEVER POWER THE 25 KG·CM SERVO FROM ESP32!</strong><br>
+        Under rapid clutch pull strokes, the 25 kg·cm high-torque servo draws between <strong>1.8A and 2.8A stall current</strong>. Powering it directly from the ESP32 USB 5V or 3.3V pins will cause catastrophic voltage brownouts, resetting the ESP32 continuously and potentially destroying the onboard voltage regulator.
+    </div>
+
+    <!-- ========================================== PAGE 2 ========================================== -->
+    <div class="page-break"></div>
+
+    <div class="header-banner">
+        <div>
+            <div class="doc-title">AMT System Hardware Wiring & Wi-Fi Manual</div>
+            <div class="doc-subtitle">Mobile Phone & Laptop Cockpit Setup Guide</div>
+        </div>
+        <div style="text-align: right;">
+            <span class="badge badge-green">Operational Guide</span>
+        </div>
+    </div>
+
+    <h2>3. How to Connect with Your Mobile Phone (Direct Wi-Fi)</h2>
+    <p>The ESP32 features a built-in emergency <strong>SoftAP (Access Point)</strong> fallback server. You can control the transmission directly from your phone browser without needing a home Wi-Fi router or PC running!</p>
+
+    <div class="step-container">
+        <div class="step-item">
+            <span class="step-num">1</span>
+            <div class="step-title">Power On the ESP32 Controller</div>
+            <div class="step-desc">Connect the ESP32 to a 5V USB charger or power supply. The onboard blue LED will light up. If it cannot find a preconfigured router within 6 seconds, it automatically launches its own standalone Wi-Fi Access Point.</div>
+        </div>
+
+        <div class="step-item">
+            <span class="step-num">2</span>
+            <div class="step-title">Open Wi-Fi Settings on your Phone</div>
+            <div class="step-desc">On your iPhone or Android device, go to <strong>Settings → Wi-Fi</strong>. Scan for available networks and tap on:
+                <br><span class="code-pill">AMT-CONTROLLER-AP</span>
+            </div>
+        </div>
+
+        <div class="step-item">
+            <span class="step-num">3</span>
+            <div class="step-title">Enter Wi-Fi Password</div>
+            <div class="step-desc">When prompted for the network password, enter:
+                <br><span class="code-pill">amtadminpassword</span>
+                <br><em>(Note: Your phone might display "Connected without internet" — this is completely normal because you are directly connected to the microcontroller).</em>
+            </div>
+        </div>
+
+        <div class="step-item">
+            <span class="step-num">4</span>
+            <div class="step-title">Open Browser & Turn on the Mobile Dashboard</div>
+            <div class="step-desc">Open Chrome, Safari, or Firefox on your phone, and type into the address bar:
+                <br><strong style="font-size: 11pt; color: #2563eb;"><a href="http://192.168.4.1">http://192.168.4.1</a></strong>
+            </div>
+        </div>
+
+        <div class="step-item">
+            <span class="step-num">5</span>
+            <div class="step-title">Control Transmission & Monitor Live RPM</div>
+            <div class="step-desc">The mobile-optimized dashboard will load immediately! You will see:
+                <ul style="margin-top: 4px; margin-left: 18px;">
+                    <li><strong>Real-Time RPM:</strong> Shows live engine flywheel RPM via WebSocket.</li>
+                    <li><strong>Gear Display:</strong> Large numeral indicator showing active gear (N, 1, 2, 3, 4).</li>
+                    <li><strong>Cockpit Buttons:</strong> Tap <strong>UPSHIFT (▲)</strong>, <strong>DOWNSHIFT (▼)</strong>, or <strong>NEUTRAL</strong> to shift instantly.</li>
+                    <li><strong>Auto / Manual Toggle:</strong> Switch between automatic RPM threshold shifting and manual control.</li>
+                    <li><strong>Emergency Stop Button:</strong> Large red button to immediately kill engine ignition and open clutch.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2>4. How to Connect with Your Laptop & Turn on the Full Cockpit</h2>
+    <p>There are two ways to operate from a laptop: (A) Quick Direct Browser, or (B) Full Industrial Cockpit Application.</p>
+
+    <h3>Method A: Quick Direct Access (Standalone ESP32 Server)</h3>
+    <div class="step-container">
+        <p>1. Connect your laptop Wi-Fi to <span class="code-pill">AMT-CONTROLLER-AP</span> (Password: <span class="code-pill">amtadminpassword</span>) OR ensure both ESP32 and laptop are connected to the same home Wi-Fi network.</p>
+        <p>2. Open your browser (Chrome or Edge) and navigate to:
+            <br>• If on AP: <strong style="color: #2563eb;">http://192.168.4.1</strong>
+            <br>• If on Home Wi-Fi: <strong style="color: #2563eb;">http://amt.local</strong> (or the ESP32's assigned router IP address).
+        </p>
+    </div>
+
+    <h3>Method B: Full Industrial Cockpit Web Application (Next.js + MQTT + SQLite)</h3>
+    <div class="step-container">
+        <div class="step-item">
+            <span class="step-num">1</span>
+            <div class="step-title">Run the 1-Click Startup Script</div>
+            <div class="step-desc">
+                In Windows File Explorer, open your project folder <span class="code-pill">E:\CH DOWNLOAD\AMT\AMT_CONTROL_SYSTEM</span> and double-click:
+                <br><strong style="font-size: 10pt; color: #16a34a;">START_AMT.bat</strong>
+            </div>
+        </div>
+
+        <div class="step-item">
+            <span class="step-num">2</span>
+            <div class="step-title">Automated Subsystem Boot</div>
+            <div class="step-desc">
+                The script automatically launches:
+                <br>• <strong>MQTT Broker:</strong> Port 1883 (Mosquitto or embedded Aedes broker).
+                <br>• <strong>Node.js Backend:</strong> Port 5000 (Express REST API, SQLite WAL database, WebSockets).
+                <br>• <strong>Next.js Frontend:</strong> Port 3000 (Automotive instrument cluster dashboard).
+            </div>
+        </div>
+
+        <div class="step-item">
+            <span class="step-num">3</span>
+            <div class="step-title">Automatic Browser Launch</div>
+            <div class="step-desc">
+                The startup script automatically launches your default browser to:
+                <br><strong style="font-size: 11pt; color: #2563eb;"><a href="http://localhost:3000">http://localhost:3000</a></strong>
+            </div>
+        </div>
+
+        <div class="step-item">
+            <span class="step-num">4</span>
+            <div class="step-title">Explore the 12 Specialized Cockpit Views</div>
+            <div class="step-desc">
+                From the top navigation bar, you can seamlessly navigate through:
+                <br><strong>1. Dashboard</strong> (Radial tachometer, gear numeral, 10-phase sequence visualizer)
+                <br><strong>2. RPM Monitor</strong> (Waveform charts, PPR settings, glitch filter)
+                <br><strong>3. Transmission</strong> (Paddle shift controls, shift timing audit log)
+                <br><strong>4. Servo Control</strong> (Clutch 15° engage / 95° disengage calibration, slider)
+                <br><strong>5. Stepper Control</strong> (Jog -100/-10/+10/+100, homing, gear step presets)
+                <br><strong>6. Auto Mode</strong> (Gear upshift/downshift RPM thresholds, hysteresis, speed mapping)
+                <br><strong>7. Telemetry</strong> (High-speed multi-variable stream with latency counter)
+                <br><strong>8. Analytics</strong> (Performance score 0-100, shift duration distribution)
+                <br><strong>9. Diagnostics</strong> (Subsystem self-tests, sensor disconnect detection)
+                <br><strong>10. Data Mgmt</strong> (1-click CSV export of shift history, RPM telemetry, fault logs)
+                <br><strong>11. Configuration</strong> (Hardware pin layout, Wi-Fi credentials, MQTT host editor)
+                <br><strong>12. Emergency</strong> (Large E-Stop kill switch, failsafe latch, remote ESP32 reboot)
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== PAGE 3 ========================================== -->
+    <div class="page-break"></div>
+
+    <div class="header-banner">
+        <div>
+            <div class="doc-title">AMT System Hardware Wiring & Wi-Fi Manual</div>
+            <div class="doc-subtitle">Bench Testing, Hardware Calibration & Troubleshooting</div>
+        </div>
+        <div style="text-align: right;">
+            <span class="badge badge-amber">Field Calibration</span>
+        </div>
+    </div>
+
+    <h2>5. Safe Bench Testing & Calibration Procedure</h2>
+    <p>Before installing the actuators onto a real engine or vehicle transmission, perform this mandatory bench test checklist:</p>
+
+    <div class="step-container">
+        <div class="step-item">
+            <span class="step-num">1</span>
+            <div class="step-title">Hardware Simulation Mode Verification (Zero-Hardware Test)</div>
+            <div class="step-desc">
+                You can test the entire dashboard and shift state machine on your laptop even before plugging in the ESP32!
+                In the top navigation bar of <span class="code-pill">http://localhost:3000</span>, click the <strong>"SIMULATOR: OFF"</strong> button to switch it to <strong>"SIMULATOR: ON"</strong>.
+                You will observe simulated RPM revving, automatic upshifting from Neutral to 4th gear, clutch disengagement animations, and shift log generation!
+            </div>
+        </div>
+
+        <div class="step-item">
+            <span class="step-num">2</span>
+            <div class="step-title">Bench Calibrating the Clutch Servo</div>
+            <div class="step-desc">
+                With the 25 kg·cm servo mounted to your clutch linkage:
+                <br>• Open <strong>Tab 4: Servo Control</strong>.
+                <br>• Verify the resting engaged angle is set to <strong>15°</strong> (zero preload on release arm).
+                <br>• Click <strong>"DISENGAGE CLUTCH (95°)"</strong> and check that the clutch plate completely separates without the servo horn physically binding against mechanical stops.
+                <br>• Adjust angles using the slider and click <strong>"Save Calibration to ESP32 Flash"</strong>.
+            </div>
+        </div>
+
+        <div class="step-item">
+            <span class="step-num">3</span>
+            <div class="step-title">Calibrating Stepper Motor Shift Gate Coordinates</div>
+            <div class="step-desc">
+                With the NEMA 17 coupled to the gear shift selector drum/fork:
+                <br>• Open <strong>Tab 5: Stepper Control</strong>.
+                <br>• Click <strong>"SET ZERO (NEUTRAL)"</strong> when the gearbox is physically in Neutral.
+                <br>• Use the Jog buttons (<span class="code-pill">+10</span>, <span class="code-pill">+100</span>) to move the mechanism until 1st Gear clicks in cleanly. Record the step count (e.g. 500 steps).
+                <br>• Repeat for Gear 2 (1000 steps), Gear 3 (1500 steps), and Gear 4 (2000 steps).
+                <br>• Click <strong>"Save Step Presets to ESP32 Flash"</strong>.
+            </div>
+        </div>
+
+        <div class="step-item">
+            <span class="step-num">4</span>
+            <div class="step-title">Testing Emergency Stop Failsafe</div>
+            <div class="step-desc">
+                While a shift is occurring, hit the physical red mushroom button or click <strong>EMERGENCY STOP</strong> in the software cockpit:
+                <br>• The engine cut relay must immediately energize (cutting spark/fuel).
+                <br>• The stepper motor pulses must immediately stop.
+                <br>• The clutch servo must snap to the open disengaged safety angle (95°).
+                <br>• The status indicator LED will strobe rapidly.
+            </div>
+        </div>
+    </div>
+
+    <h2>6. Quick Diagnostic & Troubleshooting Reference</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Observed Symptom</th>
+                <th>Probable Root Cause</th>
+                <th>Prescribed Engineering Remedy</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>ESP32 brownouts / reboots during shift</strong></td>
+                <td>25 kg·cm servo drawing > 2A from ESP32 pins</td>
+                <td>Isolate servo supply. Connect PCA9685 V+ to independent 6V 5A-10A power supply with common ground.</td>
+            </tr>
+            <tr>
+                <td><strong>V183 IR reads 0 RPM or erratic spikes</strong></td>
+                <td>Comparator sensitivity trimpot or ambient light</td>
+                <td>Adjust blue trimpot on V183 until LED toggles on flag pass. In Tab 2, increase Glitch Filter to 300 µs.</td>
+            </tr>
+            <tr>
+                <td><strong>Stepper motor buzzes but does not turn</strong></td>
+                <td>Coil A and Coil B wire pairing inverted on L298N</td>
+                <td>Swap Coil leads: ensure Black & Green go to OUT1/2 (Coil A), and Red & Blue go to OUT3/4 (Coil B).</td>
+            </tr>
+            <tr>
+                <td><strong>L298N driver heats up excessively</strong></td>
+                <td>NEMA 17 low resistance (~2.4Ω) drawing high current</td>
+                <td>Firmware automatically de-energizes coils after 400ms idle. For heavy duty, replace L298N with TMC2209.</td>
+            </tr>
+            <tr>
+                <td><strong>Web Dashboard shows "OFFLINE"</strong></td>
+                <td>Wi-Fi station failed to connect to router</td>
+                <td>Connect phone or laptop to fallback hotspot <span class="mono">AMT-CONTROLLER-AP</span> and browse to <span class="mono">http://192.168.4.1</span>.</td>
+            </tr>
+            <tr>
+                <td><strong>E-Stop Latched permanently</strong></td>
+                <td>NC button switch contact open or wire disconnected</td>
+                <td>Ensure mushroom button is twisted clockwise to release. Check continuity on GPIO 35.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert-box alert-success" style="margin-top: 15px;">
+        <strong>SYSTEM SHUTDOWN:</strong> To safely stop all background servers, close data streams, and preserve SQLite database records cleanly, double-click <span class="code-pill">STOP_AMT.bat</span> in the project root directory.
+    </div>
+
+</body>
+</html>
+

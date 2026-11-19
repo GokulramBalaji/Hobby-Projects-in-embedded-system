@@ -1,0 +1,20 @@
+{
+  "name": "amt-backend",
+  "version": "2.4.0",
+  "description": "Industrial PC Backend for Advanced IoT Automatic Manual Transmission (AMT) System",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "aedes": "^1.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mqtt": "^5.10.4",
+    "sqlite3": "^6.0.1",
+    "ws": "^8.18.0"
+  }
+}
+
